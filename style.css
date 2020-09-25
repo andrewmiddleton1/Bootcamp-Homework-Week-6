@@ -1,0 +1,65 @@
+#leftcontainer {
+    width: 30%;
+    float: left;
+}
+
+#rightcontainer {
+    width: 70%;
+    float: left;
+}
+
+#citynames-text {
+
+}
+
+.day1 {
+ color: cornsilk;
+ width: 15%;
+ float: left;
+ background-color: blue;
+ padding: 10px;
+ margin-right: 5px;
+}
+
+.day2 {
+    color: cornsilk;
+    width: 15%;
+    float: left;
+    background-color: blue;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.day3 {
+    color: cornsilk;
+    width: 15%;
+    float: left;
+    background-color: blue;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.day4 {
+    color: cornsilk;
+    width: 15%;
+    float: left;
+    background-color: blue;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+.day5 {
+    color: cornsilk;
+    width: 15%;
+    float: left;
+    background-color: blue;
+    padding: 10px;
+    margin-right: 5px;
+}
+.navbar-brand {
+    text-align: center;
+    font-size: 30px;
+}
+h1 {
+    font-size: 20px;
+}
