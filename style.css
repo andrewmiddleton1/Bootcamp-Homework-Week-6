@@ -8,8 +8,8 @@
     float: left;
 }
 
-#citynames-text {
-
+#citynames-list span {
+cursor: pointer;
 }
 
 .day1 {

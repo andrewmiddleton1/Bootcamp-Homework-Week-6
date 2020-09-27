@@ -15,7 +15,6 @@
     <!-- Add JQuery, MomentJS and JS Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.28.0/moment.min.js"></script>
-    <script src="script.js"></script>
 
     <!-- Add dynamic bootsrap container to contain the entire app -->
     <div class="container">
@@ -43,12 +42,9 @@
 
                     <div class="list-group">
                         <div class="citynames">
-                            <form id="citynames-form" method="POST">
-                                <form class="form-inline my-2 my-lg-0">
-                                    <input class="form-control mr-sm-2" type="text" placeholder="Enter City"
-                                        name="citynames-text" id="citynames-text">
-
-                                </form>
+                            <form id="citynames-form" class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="text" placeholder="Enter City"
+                                    name="citynames-text" id="citynames-text">
                             </form>
                         </div>
                     </div>
@@ -56,9 +52,8 @@
                 </div>
                 <input type="text" class="form-control" aria-label="Sizing example input"
                     aria-describedby="inputGroup-sizing-default">
-
-                <button type="button" class="list-group-item list-group-item-action active" id="citynames-list">>
-
+                <ul class="list-group-item list-group-item-action active" id="citynames-list">
+                </ul>
 
             </div>
 

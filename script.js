@@ -1,9 +1,11 @@
+//$(document).ready(function () {
+
 // this is the code for creating and storing the city names inputed by the user
 
 var citynamesInput = document.querySelector("#citynames-text");
 var citynamesForm = document.querySelector("#citynames-form");
 var citynamesList = document.querySelector("#citynames-list");
-
+console.log(citynamesForm);
 // create the array in which everything will be stored
 var citynames = [];
 
@@ -19,7 +21,7 @@ function rendercitynames() {
         var cityname = citynames[i];
 
         var li = document.createElement("p");
-        $(li).text(cityname);
+        $(li).html("<span>" + cityname + "</span>");
         $(li).attr("data-index", i);
 
         var button = document.createElement("button");
@@ -35,7 +37,7 @@ function initcitynames() {
 
     var storedcitynames = JSON.parse(localStorage.getItem("citynames"));
 
-    // As long as there are items in storage, transfer to the todos array
+    // As long as there are items in storage, transfer to the citynames array
     if (storedcitynames !== null) {
         citynames = storedcitynames;
     }
@@ -44,23 +46,29 @@ function initcitynames() {
 }
 
 function storecitynames() {
-    // Stringify and set "todos" key in localStorage to todos array
+    // Stringify and set "citynames" key in localStorage to citynames array
     localStorage.setItem("citynames", JSON.stringify(citynames));
 }
 // When the new city is submitted.. 
 citynamesForm.addEventListener("submit", function (event) {
+    event.preventDefault()
     var citynamesText = citynamesInput.value.trim();
 
-    // Return from function early if submitted todoText is blank
+    console.log(citynamesText);
+    // Return from function early if submitted citynamesText is blank
     if (citynamesText === "") {
         return;
     }
 
-    // Add new todoText to todos array, clear the input
+
+    dailyweather(citynamesText);
+
+
+    // Add new text to array, clear the input
     citynames.push(citynamesText);
     citynamesInput.value = "";
 
-    // Store updated todos in localStorage, re-render the list
+    // Store updated citynames in localStorage, re-render the list
     storecitynames();
     rendercitynames();
 });
@@ -75,42 +83,34 @@ $(citynamesList).click(function (event) {
         var index = $(element.parentElement).attr("data-index");
         citynames.splice(index, 1);
 
+
         // Store updated todos in localStorage, re-render the list
         storecitynames();
         rendercitynames();
     }
-});
+    else {
+        console.log(element.innerText);
+        var selectedcityname = element.innerText;
+        dailyweather(selectedcityname);
 
-// Another event listener will be added to to the input form in order to trigger the dailyweather and forecast functions:
-
-citynamesForm.addEventListener("submit", function (event) {
-    var selectedcityname = citynamesInput.value.trim();
-
-    // Return from function early if submitted cityname is blank
-    if (citynamesText === "") {
-        return;
     }
 
-    dailyweather(selectedcityname);
-    getforecast(selectedcityname);
 });
 
 
+// declared selectedcityname as a global variable
+//var selectedcityname = "sydney";
 
+// Another event listener will be added to to the input form in order to trigger the dailyweather and forecast functions:
 
 
 // First we need the daily weather API:
 
-// var selectedcityname = "Sydney";
-
-
-
-
-function dailyweather() {
+function dailyweather(citynamesText) {
 
     var APIKey = "166a433c57516f51dfab1f7edaed8413";
 
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + selectedcityname +
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + citynamesText +
         "&appid=" + APIKey;
 
     // Here we run our AJAX call to the OpenWeatherMap API
@@ -167,7 +167,7 @@ function dailyweather() {
 
 }
 
-dailyweather();
+
 // To get the UV rating and the 5-Day Forecast Use the One Call API
 
 function getforecast(lat, lon) {
@@ -205,6 +205,17 @@ function getforecast(lat, lon) {
 
             //first display the UV index in the current day
             $(".UVindex").text("Current UV Index:" + responseonecall.current.uvi);
+
+            // colour the UVI according to pleasant, moderate, severe
+            if (responseonecall.current.uvi < 3) {
+                $(".UVindex").css({ "background-color": "green", "color": "white" });
+            }
+            if (responseonecall.current.uvi >= 3 && responseonecall.current.uvi <= 5) {
+                $(".UVindex").css({ "background-color": "purple", "color": "white" });
+            }
+            if (responseonecall.current.uvi > 5) {
+                $(".UVindex").css({ "background-color": "red", "color": "white" });
+            }
 
             // the all of the info relevant to day 1 of the 5-day forecast
             $(".day1").html("Date: " + datetime + " & " + "Temp:" + day1temp + " & " + "Humidity:" + day1humidity);
@@ -276,3 +287,20 @@ function getforecast(lat, lon) {
         });
 
 }
+
+//  Add Click Event to display weather for city in storage
+
+/* $(citynamesForm).click(function (event) {
+    var selectedcityname = citynamesInput.value.trim();
+
+    // Return from function early if submitted cityname is blank
+    if (citynamesText === "") {
+        return;
+    }
+
+    dailyweather(selectedcityname);
+    getforecast(selectedcityname);
+});
+ */
+
+//})
